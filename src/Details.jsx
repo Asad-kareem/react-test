@@ -1,5 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import ErrorBoundry from "./ErrorBoundry";
+import Carasoul from "./Carosouls";
 import fetchPet from "./fetch";
 const Details = () => {
   const { id } = useParams();
@@ -15,6 +17,7 @@ const Details = () => {
   const pets = results.data.pets[0];
   return (
     <div className="details">
+      <Carasoul images={pets.images} />
       <div>
         <h1>{pets.name}</h1>
         <h2>
@@ -27,4 +30,12 @@ const Details = () => {
   );
 };
 
-export default Details;
+function DetailsErrorBoundries() {
+  return (
+    <ErrorBoundry>
+      <Details />
+    </ErrorBoundry>
+  );
+}
+
+export default DetailsErrorBoundries;
